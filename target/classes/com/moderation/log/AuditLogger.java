@@ -1,13 +1,13 @@
 package com.moderation.log;
 
+import com.moderation.model.AuditLog;
+import com.moderation.model.ModerationAction;
+import com.moderation.model.Severity;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import com.moderation.model.AuditLog;
-import com.moderation.model.ModerationAction;
-import com.moderation.model.Severity;
 
 /**
  * ============================================================

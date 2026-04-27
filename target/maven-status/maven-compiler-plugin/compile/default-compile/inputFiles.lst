@@ -1,15 +1,15 @@
-C:\Users\Rishaaa\Desktop\ContentModerationEngine\src\main\java\com\moderation\engine\WordRepository.java
-C:\Users\Rishaaa\Desktop\ContentModerationEngine\src\main\java\com\moderation\model\BannedWord.java
-C:\Users\Rishaaa\Desktop\ContentModerationEngine\src\main\java\com\moderation\log\AuditLogger.java
-C:\Users\Rishaaa\Desktop\ContentModerationEngine\src\main\java\com\moderation\model\ModerationAction.java
-C:\Users\Rishaaa\Desktop\ContentModerationEngine\src\main\java\com\moderation\model\AuditLog.java
-C:\Users\Rishaaa\Desktop\ContentModerationEngine\src\main\java\com\moderation\model\ModerationResult.java
-C:\Users\Rishaaa\Desktop\ContentModerationEngine\src\main\java\com\moderation\engine\ModerationEngine.java
-C:\Users\Rishaaa\Desktop\ContentModerationEngine\src\main\java\com\moderation\Main.java
-C:\Users\Rishaaa\Desktop\ContentModerationEngine\src\main\java\com\moderation\model\Context.java
-C:\Users\Rishaaa\Desktop\ContentModerationEngine\src\main\java\com\moderation\engine\StrikeManager.java
-C:\Users\Rishaaa\Desktop\ContentModerationEngine\src\main\java\com\moderation\engine\ContextRuleManager.java
-C:\Users\Rishaaa\Desktop\ContentModerationEngine\src\main\java\com\moderation\model\Severity.java
-C:\Users\Rishaaa\Desktop\ContentModerationEngine\src\main\java\com\moderation\util\TextNormalizer.java
-C:\Users\Rishaaa\Desktop\ContentModerationEngine\src\main\java\com\moderation\util\TextMatcher.java
-C:\Users\Rishaaa\Desktop\ContentModerationEngine\src\main\java\com\moderation\engine\SeverityEngine.java
+C:\Users\Rishaaa\Desktop\final devops\devops_projectFinal\src\main\java\com\moderation\Main.java
+C:\Users\Rishaaa\Desktop\final devops\devops_projectFinal\src\main\java\com\moderation\engine\WordRepository.java
+C:\Users\Rishaaa\Desktop\final devops\devops_projectFinal\src\main\java\com\moderation\model\Severity.java
+C:\Users\Rishaaa\Desktop\final devops\devops_projectFinal\src\main\java\com\moderation\engine\StrikeManager.java
+C:\Users\Rishaaa\Desktop\final devops\devops_projectFinal\src\main\java\com\moderation\model\ModerationAction.java
+C:\Users\Rishaaa\Desktop\final devops\devops_projectFinal\src\main\java\com\moderation\util\TextNormalizer.java
+C:\Users\Rishaaa\Desktop\final devops\devops_projectFinal\src\main\java\com\moderation\engine\SeverityEngine.java
+C:\Users\Rishaaa\Desktop\final devops\devops_projectFinal\src\main\java\com\moderation\util\TextMatcher.java
+C:\Users\Rishaaa\Desktop\final devops\devops_projectFinal\src\main\java\com\moderation\engine\ModerationEngine.java
+C:\Users\Rishaaa\Desktop\final devops\devops_projectFinal\src\main\java\com\moderation\engine\ContextRuleManager.java
+C:\Users\Rishaaa\Desktop\final devops\devops_projectFinal\src\main\java\com\moderation\log\AuditLogger.java
+C:\Users\Rishaaa\Desktop\final devops\devops_projectFinal\src\main\java\com\moderation\model\AuditLog.java
+C:\Users\Rishaaa\Desktop\final devops\devops_projectFinal\src\main\java\com\moderation\model\Context.java
+C:\Users\Rishaaa\Desktop\final devops\devops_projectFinal\src\main\java\com\moderation\model\BannedWord.java
+C:\Users\Rishaaa\Desktop\final devops\devops_projectFinal\src\main\java\com\moderation\model\ModerationResult.java
