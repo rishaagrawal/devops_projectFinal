@@ -8,53 +8,53 @@ import com.moderation.util.TextNormalizer;
 /**
  * ============================================================
  * MODULE : Moderation Engine (Central Orchestrator)
- * COMBINES contributions from all 4 persons.
+ * 
  * ============================================================
  *
  * Pipeline executed for every call to {@link #moderate}:
  *
- *  Step 1 - Text Normalization  (Person 2 : TextNormalizer)
- *  Step 2 - Text Matching       (Person 2 : TextMatcher -> WordRepository)
- *  Step 3 - Severity Evaluation (Person 1 : SeverityEngine)
- *  Step 4 - Context Override    (Person 3 : ContextRuleManager)
- *  Step 5 - Strike Escalation   (Person 3 : StrikeManager)
- *  Step 6 - Audit Logging       (Person 4 : AuditLogger)
- *  Step 7 - Return ModerationResult
+ * Step 1 - Text Normalization (Person 2 : TextNormalizer)
+ * Step 2 - Text Matching (Person 2 : TextMatcher -> WordRepository)
+ * Step 3 - Severity Evaluation (Person 1 : SeverityEngine)
+ * Step 4 - Context Override (Person 3 : ContextRuleManager)
+ * Step 5 - Strike Escalation (Person 3 : StrikeManager)
+ * Step 6 - Audit Logging (Person 4 : AuditLogger)
+ * Step 7 - Return ModerationResult
  */
 public class ModerationEngine {
 
-    private final WordRepository     wordRepo;
-    private final SeverityEngine     severityEngine;
-    private final StrikeManager      strikeManager;
+    private final WordRepository wordRepo;
+    private final SeverityEngine severityEngine;
+    private final StrikeManager strikeManager;
     private final ContextRuleManager contextManager;
-    private final AuditLogger        auditLogger;
+    private final AuditLogger auditLogger;
 
     /** Default constructor - creates fresh instances of all sub-components. */
     public ModerationEngine() {
-        this.wordRepo       = new WordRepository();
+        this.wordRepo = new WordRepository();
         this.severityEngine = new SeverityEngine();
-        this.strikeManager  = new StrikeManager();
+        this.strikeManager = new StrikeManager();
         this.contextManager = new ContextRuleManager();
-        this.auditLogger    = new AuditLogger();
+        this.auditLogger = new AuditLogger();
     }
 
     /**
      * Constructor for dependency injection (used in unit / integration tests).
      */
     public ModerationEngine(WordRepository wordRepo,
-                            SeverityEngine severityEngine,
-                            StrikeManager strikeManager,
-                            ContextRuleManager contextManager,
-                            AuditLogger auditLogger) {
-        this.wordRepo       = wordRepo;
+            SeverityEngine severityEngine,
+            StrikeManager strikeManager,
+            ContextRuleManager contextManager,
+            AuditLogger auditLogger) {
+        this.wordRepo = wordRepo;
         this.severityEngine = severityEngine;
-        this.strikeManager  = strikeManager;
+        this.strikeManager = strikeManager;
         this.contextManager = contextManager;
-        this.auditLogger    = auditLogger;
+        this.auditLogger = auditLogger;
     }
 
     // ------------------------------------------------------------------
-    //  Core moderation method
+    // Core moderation method
     // ------------------------------------------------------------------
 
     /**
@@ -62,7 +62,8 @@ public class ModerationEngine {
      *
      * @param userId  The user submitting the content (tracked for strikes)
      * @param text    The raw message text
-     * @param context The platform context (GENERAL / EDUCATIONAL / MEDICAL / GAMING)
+     * @param context The platform context (GENERAL / EDUCATIONAL / MEDICAL /
+     *                GAMING)
      * @return A {@link ModerationResult} describing the final decision
      */
     public ModerationResult moderate(String userId, String text, Context context) {
@@ -81,7 +82,7 @@ public class ModerationEngine {
         }
 
         // ?? Step 3: Severity -> base action ??????????????????????????????
-        Severity         severity   = found.getSeverity();
+        Severity severity = found.getSeverity();
         ModerationAction baseAction = severityEngine.evaluate(severity);
 
         // ?? Step 4: Context override ?????????????????????????????????????
@@ -92,7 +93,8 @@ public class ModerationEngine {
         String reason;
 
         if (contextAction == ModerationAction.ALLOW_WITH_WARNING && severity != Severity.LOW) {
-            // Context whitelisted this word -- skip strike escalation to avoid unfair penalties
+            // Context whitelisted this word -- skip strike escalation to avoid unfair
+            // penalties
             finalAction = contextAction;
             reason = String.format(
                     "Context '%s' allows word '%s' with warning (severity normally %s).",
@@ -125,7 +127,7 @@ public class ModerationEngine {
     }
 
     // ------------------------------------------------------------------
-    //  Helper
+    // Helper
     // ------------------------------------------------------------------
 
     /** Returns whichever of the two actions is more restrictive. */
@@ -135,23 +137,44 @@ public class ModerationEngine {
 
     private int rank(ModerationAction action) {
         switch (action) {
-            case ALLOW:              return 0;
-            case ALLOW_WITH_WARNING: return 1;
-            case FLAG:               return 2;
-            case TEMPORARY_BLOCK:    return 3;
-            case BLOCK:              return 4;
-            case PERMANENT_BLOCK:    return 5;
-            default:                 return 0;
+            case ALLOW:
+                return 0;
+            case ALLOW_WITH_WARNING:
+                return 1;
+            case FLAG:
+                return 2;
+            case TEMPORARY_BLOCK:
+                return 3;
+            case BLOCK:
+                return 4;
+            case PERMANENT_BLOCK:
+                return 5;
+            default:
+                return 0;
         }
     }
 
     // ------------------------------------------------------------------
-    //  Accessors (exposed for menu-driven UI and tests)
+    // Accessors (exposed for menu-driven UI and tests)
     // ------------------------------------------------------------------
 
-    public WordRepository     getWordRepository()  { return wordRepo; }
-    public StrikeManager      getStrikeManager()   { return strikeManager; }
-    public AuditLogger        getAuditLogger()     { return auditLogger; }
-    public SeverityEngine     getSeverityEngine()  { return severityEngine; }
-    public ContextRuleManager getContextManager()  { return contextManager; }
+    public WordRepository getWordRepository() {
+        return wordRepo;
+    }
+
+    public StrikeManager getStrikeManager() {
+        return strikeManager;
+    }
+
+    public AuditLogger getAuditLogger() {
+        return auditLogger;
+    }
+
+    public SeverityEngine getSeverityEngine() {
+        return severityEngine;
+    }
+
+    public ContextRuleManager getContextManager() {
+        return contextManager;
+    }
 }
