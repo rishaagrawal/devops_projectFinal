@@ -1,6 +1,15 @@
+<<<<<<< HEAD
 C:\Users\Rishaaa\Desktop\final devops\devops_projectFinal\src\test\java\com\moderation\SeverityEngineTest.java
 C:\Users\Rishaaa\Desktop\final devops\devops_projectFinal\src\test\java\com\moderation\StrikeContextTest.java
 C:\Users\Rishaaa\Desktop\final devops\devops_projectFinal\src\test\java\com\moderation\ManualTestRunner.java
 C:\Users\Rishaaa\Desktop\final devops\devops_projectFinal\src\test\java\com\moderation\ModerationEngineIntegrationTest.java
 C:\Users\Rishaaa\Desktop\final devops\devops_projectFinal\src\test\java\com\moderation\TextMatchingTest.java
 C:\Users\Rishaaa\Desktop\final devops\devops_projectFinal\src\test\java\com\moderation\AuditLoggerTest.java
+=======
+C:\Users\divya\OneDrive\Desktop\devops project final\devops_projectFinal\src\test\java\com\moderation\SeverityEngineTest.java
+C:\Users\divya\OneDrive\Desktop\devops project final\devops_projectFinal\src\test\java\com\moderation\StrikeContextTest.java
+C:\Users\divya\OneDrive\Desktop\devops project final\devops_projectFinal\src\test\java\com\moderation\AuditLoggerTest.java
+C:\Users\divya\OneDrive\Desktop\devops project final\devops_projectFinal\src\test\java\com\moderation\TextMatchingTest.java
+C:\Users\divya\OneDrive\Desktop\devops project final\devops_projectFinal\src\test\java\com\moderation\ModerationEngineIntegrationTest.java
+C:\Users\divya\OneDrive\Desktop\devops project final\devops_projectFinal\src\test\java\com\moderation\ManualTestRunner.java
+>>>>>>> 1037929b3c4d803ff36085fd9fce9a0698c2684e

@@ -56,7 +56,7 @@ pipeline {
         stage('2. Compile') {
             steps {
                 echo '=== Compiling source code with Maven ==='
-                sh 'mvn clean compile -B'
+                bat 'mvn clean compile -B'
             }
         }
 
@@ -64,7 +64,7 @@ pipeline {
         stage('3. JUnit Tests') {
             steps {
                 echo '=== Running JUnit 5 tests via Maven Surefire ==='
-                sh 'mvn test -B'
+                bat 'mvn test -B'
             }
             post {
                 always {
@@ -87,25 +87,25 @@ pipeline {
 
                 stage('Person 1 – SeverityEngineTest') {
                     steps {
-                        sh 'mvn test -Dtest=SeverityEngineTest -B'
+                        bat 'mvn test -Dtest=SeverityEngineTest -B'
                     }
                 }
 
                 stage('Person 2 – TextMatchingTest') {
                     steps {
-                        sh 'mvn test -Dtest=TextMatchingTest -B'
+                        bat 'mvn test -Dtest=TextMatchingTest -B'
                     }
                 }
 
                 stage('Person 3 – StrikeContextTest') {
                     steps {
-                        sh 'mvn test -Dtest=StrikeContextTest -B'
+                        bat 'mvn test -Dtest=StrikeContextTest -B'
                     }
                 }
 
                 stage('Person 4 – AuditLoggerTest + Integration') {
                     steps {
-                        sh 'mvn test -Dtest=AuditLoggerTest,ModerationEngineIntegrationTest -B'
+                        bat 'mvn test -Dtest=AuditLoggerTest,ModerationEngineIntegrationTest -B'
                     }
                 }
             }
@@ -115,7 +115,7 @@ pipeline {
         stage('5. Package') {
             steps {
                 echo '=== Packaging executable JAR ==='
-                sh 'mvn package -DskipTests -B'
+                bat 'mvn package -DskipTests -B'
                 echo "=== JAR created: target/${JAR_NAME} ==="
             }
             post {
@@ -131,7 +131,7 @@ pipeline {
         stage('6. Verify') {
             steps {
                 echo '=== Running mvn verify (compile + test + package) ==='
-                sh 'mvn verify -B'
+                bat 'mvn verify -B'
             }
         }
     }
