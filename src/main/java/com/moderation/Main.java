@@ -1,11 +1,18 @@
 package com.moderation;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+
 import com.moderation.engine.ModerationEngine;
 import com.moderation.engine.WordRepository;
 import com.moderation.log.AuditLogger;
-import com.moderation.model.*;
-
-import java.util.*;
+import com.moderation.model.AuditLog;
+import com.moderation.model.BannedWord;
+import com.moderation.model.Context;
+import com.moderation.model.ModerationAction;
+import com.moderation.model.ModerationResult;
+import com.moderation.model.Severity;
 
 /**
  * Content Moderation Engine - Interactive Menu

@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
+ * Audit Logger
  * Maintains an in-memory list of AuditLog entries.
- * Records every moderation decision for accountability and review.
  */
 public class AuditLogger {
 
@@ -26,55 +26,55 @@ public class AuditLogger {
         logs.add(entry);
     }
 
-    /**
-     * Returns all log entries (unmodifiable).
-     */
+    /** Returns all logs (unmodifiable). */
     public List<AuditLog> getAllLogs() {
         return Collections.unmodifiableList(logs);
     }
 
-    /**
-     * Returns logs for a specific user.
-     */
+    /** Returns logs for a specific user. */
     public List<AuditLog> getLogsForUser(String userId) {
         return logs.stream()
                 .filter(l -> l.getUserId().equals(userId))
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Returns the total number of logged events.
-     */
-    public int getTotalLogCount() {
-        return logs.size();
-    }
-
-    /**
-     * Returns logs filtered by action type.
-     */
+    /** Returns logs filtered by action. */
     public List<AuditLog> getLogsByAction(ModerationAction action) {
         return logs.stream()
                 .filter(l -> l.getAction() == action)
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Clears all logs (useful for testing).
-     */
-    public void clearLogs() {
-        logs.clear();
+    /** Returns logs filtered by severity. */
+    public List<AuditLog> getLogsBySeverity(Severity severity) {
+        return logs.stream()
+                .filter(l -> l.getSeverity() == severity)
+                .collect(Collectors.toList());
     }
 
-    /**
-     * Prints all logs to stdout.
-     */
+    /** Total number of logs. */
+    public int getTotalLogCount() {
+        return logs.size();
+    }
+
+    /** Check if empty. */
+    public boolean isEmpty() {
+        return logs.isEmpty();
+    }
+
+    /** Print all logs. */
     public void printAll() {
         if (logs.isEmpty()) {
-            System.out.println("[AuditLogger] No logs recorded.");
+            System.out.println("No logs recorded.");
             return;
         }
         System.out.println("===== AUDIT LOG =====");
         logs.forEach(System.out::println);
         System.out.println("=====================");
+    }
+
+    /** Clear logs (for testing). */
+    public void clearLogs() {
+        logs.clear();
     }
 }
