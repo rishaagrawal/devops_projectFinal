@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.moderation.StrikeContextTest" time="0.041" tests="18" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="sun.desktop" value="windows"/>
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
+    <property name="java.specification.version" value="11"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.class.path" value="C:\Users\divya\OneDrive\Desktop\devops project final\devops_projectFinal\target\test-classes;C:\Users\divya\OneDrive\Desktop\devops project final\devops_projectFinal\target\classes;C:\Users\divya\.m2\repository\org\junit\jupiter\junit-jupiter\5.10.0\junit-jupiter-5.10.0.jar;C:\Users\divya\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.0\junit-jupiter-api-5.10.0.jar;C:\Users\divya\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\divya\.m2\repository\org\junit\platform\junit-platform-commons\1.10.0\junit-platform-commons-1.10.0.jar;C:\Users\divya\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.10.0\junit-jupiter-params-5.10.0.jar;C:\Users\divya\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.0\junit-jupiter-engine-5.10.0.jar;C:\Users\divya\.m2\repository\org\junit\platform\junit-platform-launcher\1.10.0\junit-platform-launcher-1.10.0.jar;C:\Users\divya\.m2\repository\org\junit\platform\junit-platform-engine\1.10.0\junit-platform-engine-1.10.0.jar;C:\Users\divya\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;"/>
+    <property name="java.vm.vendor" value="Eclipse Adoptium"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="user.variant" value=""/>
+    <property name="java.vendor.url" value="https://adoptium.net/"/>
+    <property name="user.timezone" value="Asia/Calcutta"/>
+    <property name="java.vm.specification.version" value="11"/>
+    <property name="os.name" value="Windows 11"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="IN"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\Eclipse Adoptium\jdk-11.0.30.7-hotspot\bin"/>
+    <property name="sun.java.command" value="C:\Users\divya\AppData\Local\Temp\surefire147102877826358635\surefirebooter-20260428002625836_3.jar C:\Users\divya\AppData\Local\Temp\surefire147102877826358635 2026-04-28T00-26-24_894-jvmRun1 surefire-20260428002625836_1tmp surefire_0-20260428002625836_2tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="C:\Users\divya\OneDrive\Desktop\devops project final\devops_projectFinal\target\test-classes;C:\Users\divya\OneDrive\Desktop\devops project final\devops_projectFinal\target\classes;C:\Users\divya\.m2\repository\org\junit\jupiter\junit-jupiter\5.10.0\junit-jupiter-5.10.0.jar;C:\Users\divya\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.0\junit-jupiter-api-5.10.0.jar;C:\Users\divya\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\divya\.m2\repository\org\junit\platform\junit-platform-commons\1.10.0\junit-platform-commons-1.10.0.jar;C:\Users\divya\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.10.0\junit-jupiter-params-5.10.0.jar;C:\Users\divya\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.0\junit-jupiter-engine-5.10.0.jar;C:\Users\divya\.m2\repository\org\junit\platform\junit-platform-launcher\1.10.0\junit-platform-launcher-1.10.0.jar;C:\Users\divya\.m2\repository\org\junit\platform\junit-platform-engine\1.10.0\junit-platform-engine-1.10.0.jar;C:\Users\divya\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="C:\Users\divya"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2026-01-20"/>
+    <property name="java.home" value="C:\Program Files\Eclipse Adoptium\jdk-11.0.30.7-hotspot"/>
+    <property name="file.separator" value="\"/>
+    <property name="basedir" value="C:\Users\divya\OneDrive\Desktop\devops project final\devops_projectFinal"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
+    <property name="surefire.real.class.path" value="C:\Users\divya\AppData\Local\Temp\surefire147102877826358635\surefirebooter-20260428002625836_3.jar"/>
+    <property name="user.script" value=""/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="11.0.30+7"/>
+    <property name="user.name" value="divya"/>
+    <property name="path.separator" value=";"/>
+    <property name="os.version" value="10.0"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="Cp1252"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Temurin-11.0.30+7"/>
+    <property name="localRepository" value="C:\Users\divya\.m2\repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues"/>
+    <property name="java.io.tmpdir" value="C:\Users\divya\AppData\Local\Temp\"/>
+    <property name="java.version" value="11.0.30"/>
+    <property name="user.dir" value="C:\Users\divya\OneDrive\Desktop\devops project final\devops_projectFinal"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="java.library.path" value="C:\Program Files\Eclipse Adoptium\jdk-11.0.30.7-hotspot\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Users\divya\AppData\Local\Programs\Microsoft VS Code;C:\Program Files\Eclipse Adoptium\jdk-11.0.30.7-hotspot\bin;C:\Python313\Scripts\;C:\Python313\;C:\Program Files\Common Files\Oracle\Java\javapath;C:\windows\system32;C:\windows;C:\windows\System32\Wbem;C:\windows\System32\WindowsPowerShell\v1.0\;C:\windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\mingw\x86_64-8.1.0-release-posix-seh-rt_v6-rev0\x86_64-8.1.0-release-posix-seh-rt_v6-rev0\bin;C:\Program Files\dotnet\;C:\ProgramData\chocolatey\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files\MySQL\MySQL Server 8.0\bin;C:\Program Files\Cloudflare\Cloudflare WARP\;C:\Users\divya\AppData\Local\nvm;C:\nvm4w\nodejs;C:\Users\divya\AppData\Local\nvm;C:\Program Files\nodejs;C:\Users\divya\Downloads\apache-maven-3.9.14-bin\apache-maven-3.9.14\bin;C:\Users\divya\AppData\Local\Microsoft\WindowsApps;C:\Users\divya\IntelliJ IDEA Community Edition 2024.2.3\bin;;C:\Users\divya\AppData\Local\Programs\Microsoft VS Code\bin;C:\mingw;C:\MinGW\bin;C:\Users\divya\.dotnet\tools;C:\Users\divya\AppData\Roaming\npm;C:\Users\divya\Downloads\flutter_windows_3.29.2-stable\flutter\bin;C:\Users\divya\AppData\Local\Programs\cursor\resources\app\bin;C:\Users\divya\AppData\Local\nvm;C:\nvm4w\nodejs;."/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.vendor" value="Eclipse Adoptium"/>
+    <property name="java.vm.version" value="11.0.30+7"/>
+    <property name="java.specification.maintenance.version" value="3"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="55.0"/>
+  </properties>
+  <testcase name="testNullContextReturnsNull" classname="com.moderation.StrikeContextTest" time="0.0"/>
+  <testcase name="testEducationalContextAllowsKillWord" classname="com.moderation.StrikeContextTest" time="0.0"/>
+  <testcase name="testMedicalContextAllowsDrugWord" classname="com.moderation.StrikeContextTest" time="0.0"/>
+  <testcase name="testFourthStrikeStillPermanentBlock" classname="com.moderation.StrikeContextTest" time="0.0"/>
+  <testcase name="testEducationalContextAllowsViolenceWord" classname="com.moderation.StrikeContextTest" time="0.0"/>
+  <testcase name="testFirstStrikeIncrementsCount" classname="com.moderation.StrikeContextTest" time="0.008"/>
+  <testcase name="testGamingContextBlocksCheatWord" classname="com.moderation.StrikeContextTest" time="0.0"/>
+  <testcase name="testDifferentUsersHaveIndependentStrikes" classname="com.moderation.StrikeContextTest" time="0.0"/>
+  <testcase name="testPeekNextActionDoesNotIncrement" classname="com.moderation.StrikeContextTest" time="0.0"/>
+  <testcase name="testSecondStrikeReturnsTemporaryBlock" classname="com.moderation.StrikeContextTest" time="0.0"/>
+  <testcase name="testResetStrikesClearsCount" classname="com.moderation.StrikeContextTest" time="0.0"/>
+  <testcase name="testResolveActionUsesOverrideWhenPresent" classname="com.moderation.StrikeContextTest" time="0.008"/>
+  <testcase name="testResolveActionUsesDefaultWhenNoOverride" classname="com.moderation.StrikeContextTest" time="0.0"/>
+  <testcase name="testGeneralContextNoOverride" classname="com.moderation.StrikeContextTest" time="0.0"/>
+  <testcase name="testThirdStrikeReturnsPermanentBlock" classname="com.moderation.StrikeContextTest" time="0.0"/>
+  <testcase name="testThreeStrikesIncrementCorrectly" classname="com.moderation.StrikeContextTest" time="0.005"/>
+  <testcase name="testFirstStrikeReturnsWarning" classname="com.moderation.StrikeContextTest" time="0.0"/>
+  <testcase name="testInitialStrikeCountIsZero" classname="com.moderation.StrikeContextTest" time="0.0"/>
+</testsuite>
