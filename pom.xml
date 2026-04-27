@@ -11,6 +11,7 @@
     <version>1.0.0</version>
     <packaging>jar</packaging>
     <name>Content Moderation Engine</name>
+    <description>A 4-person collaborative Content Moderation Engine with Severity, Text Matching, Strikes, Context Rules, and Audit Logging</description>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -20,18 +21,28 @@
     </properties>
 
     <dependencies>
-        <!-- JUnit 5 -->
+        <!-- JUnit 5 Jupiter API + Engine -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <version>${junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
+        <!-- JUnit Platform Launcher (needed by Surefire 3.x) -->
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-launcher</artifactId>
+            <version>1.10.0</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
-            <!-- Compiler -->
+            <!-- ======================================================== -->
+            <!-- Maven Compiler Plugin                                      -->
+            <!-- Person responsible: All team members                      -->
+            <!-- ======================================================== -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -39,10 +50,15 @@
                 <configuration>
                     <source>11</source>
                     <target>11</target>
+                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
 
-            <!-- Surefire for JUnit 5 -->
+            <!-- ======================================================== -->
+            <!-- Maven Surefire Plugin – runs JUnit 5 tests               -->
+            <!-- Person responsible: Person 4 (Audit & Tests)             -->
+            <!-- Run: mvn test                                              -->
+            <!-- ======================================================== -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -51,10 +67,16 @@
                     <includes>
                         <include>**/*Test.java</include>
                     </includes>
+                    <!-- Show test names in console -->
+                    <useFile>false</useFile>
+                    <printSummary>true</printSummary>
                 </configuration>
             </plugin>
 
-            <!-- Executable JAR -->
+            <!-- ======================================================== -->
+            <!-- Maven JAR Plugin – builds executable JAR                 -->
+            <!-- Run: mvn package  then  java -jar target/*.jar           -->
+            <!-- ======================================================== -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -65,6 +87,7 @@
                             <mainClass>com.moderation.Main</mainClass>
                         </manifest>
                     </archive>
+                    <finalName>ContentModerationEngine</finalName>
                 </configuration>
             </plugin>
         </plugins>

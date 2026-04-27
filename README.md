@@ -1,68 +1,33 @@
 # Content Moderation Engine
 
-A Java mini-project implementing a full content moderation pipeline with severity classification, text normalization, strike tracking, context-based rules, and audit logging.
+> **Exam Topics Demonstrated:** GitHub Collaboration · Maven · JUnit 5 · Jenkins CI/CD
 
 ---
 
-## Project Structure
-
-```
-ContentModerationEngine/
-├── pom.xml
-└── src/
-    ├── main/java/com/moderation/
-    │   ├── Main.java                          ← Entry point / demo
-    │   ├── model/
-    │   │   ├── Severity.java                  ← LOW / MEDIUM / HIGH enum
-    │   │   ├── ModerationAction.java          ← ALLOW / FLAG / BLOCK etc.
-    │   │   ├── Context.java                   ← GENERAL / EDUCATIONAL / MEDICAL / GAMING
-    │   │   ├── BannedWord.java                ← Word + severity pair
-    │   │   ├── ModerationResult.java          ← Result returned by engine
-    │   │   └── AuditLog.java                  ← Single log entry
-    │   ├── util/
-    │   │   ├── TextNormalizer.java            ← Lowercase, leet-speak, symbol stripping
-    │   │   └── TextMatcher.java               ← Substring / partial matching
-    │   └── engine/
-    │       ├── SeverityEngine.java            ← Maps severity → action
-    │       ├── WordRepository.java            ← Banned word dictionary
-    │       ├── StrikeManager.java             ← Per-user strike tracking
-    │       ├── ContextRuleManager.java        ← Context overrides
-    │       ├── AuditLogger.java               ← Log history
-    │       └── ModerationEngine.java          ← Orchestrates the full pipeline
-    └── test/java/com/moderation/
-        ├── SeverityEngineTest.java            ← Person 1 tests
-        ├── TextMatchingTest.java              ← Person 2 tests
-        ├── StrikeContextTest.java             ← Person 3 tests
-        ├── AuditLoggerTest.java               ← Person 4 tests
-        └── ModerationEngineIntegrationTest.java ← Full pipeline tests
-```
-
----
-
-## How It Works (Pipeline)
+## 📐 Project Architecture
 
 ```
 Input Text
     │
     ▼
-TextNormalizer  ─── lowercase + leet-decode + strip symbols
+TextNormalizer  ── lowercase + leet-decode + strip symbols     (Person 2)
     │
     ▼
-TextMatcher     ─── find banned word in normalized text
+TextMatcher     ── find banned word in normalized text          (Person 2)
     │
     ├── No match → ALLOW + log
     │
     ▼
-SeverityEngine  ─── HIGH→BLOCK | MEDIUM→FLAG | LOW→ALLOW_WITH_WARNING
+SeverityEngine  ── HIGH→BLOCK | MEDIUM→FLAG | LOW→ALLOW_WITH_WARNING  (Person 1)
     │
     ▼
-ContextRuleManager ─ EDUCATIONAL/MEDICAL can downgrade; GAMING can upgrade
+ContextRuleManager ── EDUCATIONAL/MEDICAL downgrade | GAMING upgrade   (Person 3)
     │
     ▼
-StrikeManager   ─── 1st→warning | 2nd→temp block | 3rd→permanent block
+StrikeManager   ── 1st→warning | 2nd→temp block | 3rd→permanent block  (Person 3)
     │
     ▼
-AuditLogger     ─── records user, word, action, severity, timestamp
+AuditLogger     ── records user, word, action, severity, timestamp      (Person 4)
     │
     ▼
 ModerationResult returned to caller
@@ -70,221 +35,303 @@ ModerationResult returned to caller
 
 ---
 
-## Severity Rules
+## 👥 4-Person Division of Work
 
-| Severity | Default Action     | Example Words                  |
-|----------|--------------------|--------------------------------|
-| HIGH     | BLOCK              | kill, bomb, hack, exploit      |
-| MEDIUM   | FLAG               | drug, violence, weapon, scam   |
-| LOW      | ALLOW_WITH_WARNING | idiot, stupid, dumb, loser     |
-
----
-
-## Strike Escalation
-
-| Strike | Action           |
-|--------|------------------|
-| 1st    | ALLOW_WITH_WARNING |
-| 2nd    | TEMPORARY_BLOCK  |
-| 3rd+   | PERMANENT_BLOCK  |
+| Person | Module | Branch |
+|--------|--------|--------|
+| **Person 1** | SeverityEngine, WordRepository, model enums | `feature-severity-engine` |
+| **Person 2** | TextNormalizer, TextMatcher | `feature-text-matching` |
+| **Person 3** | StrikeManager, ContextRuleManager | `feature-strikes-context` |
+| **Person 4** | AuditLogger, all JUnit tests | `feature-audit-logs` |
 
 ---
 
-## Context Overrides
+## 🖥️ Menu-Driven Program Features
 
-| Context     | Effect                                            |
-|-------------|---------------------------------------------------|
-| EDUCATIONAL | Whitelist: kill, violence, drug, suicide → WARNING |
-| MEDICAL     | Whitelist: drug, overdose, death → WARNING        |
-| GAMING      | Extra block: cheat, hack, exploit, glitch         |
-| GENERAL     | No override — standard rules                      |
+When you run the program, you get a **numbered menu** with these options:
 
----
-
-## Text Normalization Examples
-
-| Input        | Normalized |
-|--------------|------------|
-| `KILL`       | `kill`     |
-| `k1ll`       | `kill`     |
-| `b@dword`    | `badword`  |
-| `b0mb`       | `bomb`     |
-| `bad-word`   | `badword`  |
-| `$cam`       | `scam`     |
-
----
-
-## Running the Project
-
-### Prerequisites
-- Java 11+
-- Maven 3.6+
-
-### Run Demo
-```bash
-mvn compile exec:java -Dexec.mainClass="com.moderation.Main"
 ```
-Or:
-```bash
-mvn package
-java -jar target/ContentModerationEngine-1.0.0.jar
+ 1. Moderate a message
+ 2. View full audit log
+ 3. View audit log – filter by User
+ 4. View audit log – filter by Action
+ 5. View audit log – filter by Severity
+ 6. View audit summary statistics
+ 7. Word dictionary management (add / remove)
+ 8. View strike board (all users)
+ 9. Reset a user's strikes
+10. Change context
+11. Change user
+12. Browse banned words by severity
+13. Normalization demo (leet-decode live)
+14. Exit
 ```
 
-### Run All Tests
+---
+
+## ⚙️ Maven – Build Commands
+
+All commands must be run from the project root (where `pom.xml` lives).
+
 ```bash
+# Compile all source code
+mvn compile
+
+# Run ALL JUnit tests
 mvn test
+
+# Run tests for a specific person's module
+mvn test -Dtest=SeverityEngineTest               # Person 1
+mvn test -Dtest=TextMatchingTest                 # Person 2
+mvn test -Dtest=StrikeContextTest                # Person 3
+mvn test -Dtest=AuditLoggerTest                  # Person 4
+mvn test -Dtest=ModerationEngineIntegrationTest  # Person 4 integration
+
+# Package into executable JAR
+mvn package
+
+# Run the JAR (interactive menu)
+java -jar target/ContentModerationEngine.jar
+
+# Full lifecycle (compile + test + package)
+mvn verify
+
+# Clean build outputs
+mvn clean
+
+# Clean + full build + test in one command
+mvn clean verify
 ```
 
 ---
 
-## Test Coverage Summary
+## 🧪 JUnit 5 – Test Structure
 
-| Test Class                        | Focus                                      | Tests |
-|-----------------------------------|--------------------------------------------|-------|
-| `SeverityEngineTest`              | HIGH→BLOCK, MEDIUM→FLAG, LOW→WARNING       | 7     |
-| `TextMatchingTest`                | Case-insensitive, symbols, partial match   | 11    |
-| `StrikeContextTest`               | Strike counts, actions, context rules      | 13    |
-| `AuditLoggerTest`                 | Log creation, count, content accuracy      | 11    |
-| `ModerationEngineIntegrationTest` | Full pipeline end-to-end                   | 14    |
-| **Total**                         |                                            | **56**|
+| Test Class | Owner | Tests |
+|------------|-------|-------|
+| `SeverityEngineTest` | Person 1 | HIGH→BLOCK, MEDIUM→FLAG, LOW→WARNING, null→ALLOW, describeAction |
+| `TextMatchingTest` | Person 2 | lowercase, leet-speak, symbols, partial match, containsWord |
+| `StrikeContextTest` | Person 3 | strike counts, escalation actions, context whitelist/blocklist, resolveAction |
+| `AuditLoggerTest` | Person 4 | log creation, field accuracy, query by user/action/severity, clear |
+| `ModerationEngineIntegrationTest` | Person 4 | full pipeline end-to-end, all context overrides, strike escalation |
 
-# devops-minipro
-
-Perfect 👍 these features divide **very cleanly** among 4 people.
-Below is a **clear, logical team split** that also makes your **Git branches + JUnit tests look professional**.
-
----
-
-## ✅ 4-Person Division for Content Moderation Engine
-
-### 👤 **Person 1 – Core Moderation & Severity Engine**
-
-**Features owned:**
-
-* **Word Severity Levels**
-
-  * LOW / MEDIUM / HIGH classification
-  * Map severity → action (ALLOW / FLAG / BLOCK)
-
-**Responsibilities:**
-
-* Define `Severity` enum
-* Implement rule evaluation logic
-* Return moderation result based on severity
-
-**JUnit focus:**
-
-* HIGH → BLOCK
-* MEDIUM → FLAG
-* LOW → ALLOW with warning
-
-**Suggested branch:**
-`feature-severity-engine`
+Test results appear in:
+- **Console**: `mvn test`
+- **Jenkins**: Test Results tab → per-test pass/fail breakdown
+- **GitHub Actions**: Annotations on each commit / PR
 
 ---
 
-### 👤 **Person 2 – Text Matching & Normalization**
+## 🔀 GitHub Collaboration – Step-by-Step
 
-**Features owned:**
+### Initial setup (one person does this)
 
-* **Case-insensitive matching**
-* **Partial / symbol-stripped matching**
+```bash
+# 1. Create the repo on GitHub (named e.g. ContentModerationEngine)
+# 2. Clone it locally
+git clone https://github.com/YOUR_ORG/ContentModerationEngine.git
+cd ContentModerationEngine
 
-**Responsibilities:**
+# 3. Push the initial project structure on main
+git add .
+git commit -m "Initial project structure – pom.xml, models, Main.java"
+git push origin main
+```
 
-* Normalize text (lowercase, remove symbols)
-* Detect disguised words (`b@dword`, `bad-word`)
-* Provide reusable text-matching utility
+### Each person works on their feature branch
 
-**JUnit focus:**
+```bash
+# ── Person 1 ──────────────────────────────────────────────
+git checkout -b feature-severity-engine
+# ... write SeverityEngine.java, WordRepository.java, SeverityEngineTest.java
+git add src/main/java/com/moderation/engine/SeverityEngine.java
+git add src/main/java/com/moderation/engine/WordRepository.java
+git add src/test/java/com/moderation/SeverityEngineTest.java
+git commit -m "feat(severity): implement SeverityEngine and WordRepository
 
-* Case-insensitive detection
-* Symbol removal logic
-* Partial match detection
+- SeverityEngine maps HIGH→BLOCK, MEDIUM→FLAG, LOW→ALLOW_WITH_WARNING
+- WordRepository pre-loaded with 15 default words across 3 severity tiers
+- SeverityEngineTest: 10 JUnit 5 tests all passing"
+git push origin feature-severity-engine
+# → Open Pull Request on GitHub: feature-severity-engine → main
 
-**Suggested branch:**
-`feature-text-matching`
+# ── Person 2 ──────────────────────────────────────────────
+git checkout -b feature-text-matching
+# ... write TextNormalizer.java, TextMatcher.java, TextMatchingTest.java
+git add src/main/java/com/moderation/util/
+git add src/test/java/com/moderation/TextMatchingTest.java
+git commit -m "feat(text): implement TextNormalizer and TextMatcher
+
+- TextNormalizer: lowercase, leet-decode (k1ll→kill, b0mb→bomb), strip symbols
+- TextMatcher: case-insensitive, partial-match, leet-speak detection
+- TextMatchingTest: 16 JUnit 5 tests all passing"
+git push origin feature-text-matching
+# → Open Pull Request on GitHub: feature-text-matching → main
+
+# ── Person 3 ──────────────────────────────────────────────
+git checkout -b feature-strikes-context
+# ... write StrikeManager.java, ContextRuleManager.java, StrikeContextTest.java
+git add src/main/java/com/moderation/engine/StrikeManager.java
+git add src/main/java/com/moderation/engine/ContextRuleManager.java
+git add src/test/java/com/moderation/StrikeContextTest.java
+git commit -m "feat(strikes): implement StrikeManager and ContextRuleManager
+
+- StrikeManager: 1st→WARNING, 2nd→TEMP_BLOCK, 3rd+→PERM_BLOCK
+- ContextRuleManager: EDUCATIONAL & MEDICAL whitelist, GAMING blocklist
+- StrikeContextTest: 18 JUnit 5 tests all passing"
+git push origin feature-strikes-context
+# → Open Pull Request on GitHub: feature-strikes-context → main
+
+# ── Person 4 ──────────────────────────────────────────────
+git checkout -b feature-audit-logs
+# ... write AuditLogger.java, all 5 test files
+git add src/main/java/com/moderation/log/AuditLogger.java
+git add src/test/java/com/moderation/
+git commit -m "feat(audit): implement AuditLogger and all JUnit test suites
+
+- AuditLogger: log(), query by user/action/severity, printAll(), printSummary()
+- AuditLoggerTest: 14 tests
+- ModerationEngineIntegrationTest: 16 end-to-end pipeline tests
+- All 5 test classes passing"
+git push origin feature-audit-logs
+# → Open Pull Request on GitHub: feature-audit-logs → main
+```
+
+### Merging / reviewing Pull Requests
+
+Each PR should be:
+1. Reviewed by at least one other team member on GitHub
+2. Merged only after GitHub Actions CI passes (all JUnit tests green)
+3. Merged in order: Person 1 → Person 2 → Person 3 → Person 4
+
+```bash
+# After PR is merged into main, each person syncs:
+git checkout main
+git pull origin main
+```
+
+### Final commit on main (Person 1 or team lead)
+
+```bash
+git checkout main
+git add Jenkinsfile .github/workflows/ci.yml README.md
+git commit -m "ci: add Jenkinsfile, GitHub Actions workflow, and README
+
+- Jenkinsfile: declarative pipeline with compile/test/package/verify stages
+- ci.yml: GitHub Actions CI with JUnit report publishing
+- README: full setup and collaboration guide"
+git push origin main
+```
 
 ---
 
-### 👤 **Person 3 – Strike & Context Rule Manager**
+## 🏗️ Jenkins Setup Guide
 
-**Features owned:**
+### Step 1 – Prerequisites on your Jenkins server
 
-* **Strike / Warning System**
-* **Context-Based Rules**
+1. Install **JDK 11** and **Maven 3.9** on the Jenkins machine
+2. In Jenkins → **Manage Jenkins** → **Global Tool Configuration**:
+   - Add JDK named `JDK-11`
+   - Add Maven named `Maven-3.9`
+3. Install the **Pipeline** plugin (usually pre-installed)
+4. Install the **JUnit** plugin (for `junit()` step in Jenkinsfile)
 
-**Responsibilities:**
+### Step 2 – Create the Pipeline job
 
-* Track user strikes
-* Enforce escalation:
+1. Jenkins Dashboard → **New Item**
+2. Name: `ContentModerationEngine`
+3. Type: **Pipeline** → OK
+4. Under **Pipeline**:
+   - Definition: `Pipeline script from SCM`
+   - SCM: `Git`
+   - Repository URL: `https://github.com/YOUR_ORG/ContentModerationEngine.git`
+   - Credentials: add your GitHub token if the repo is private
+   - Branch Specifier: `*/main`
+   - Script Path: `Jenkinsfile`
+5. Click **Save** → **Build Now**
 
-  * 1st → warning
-  * 2nd → temporary block
-  * 3rd → permanent block
-* Apply context overrides (educational vs general)
+### Step 3 – What you will see in Jenkins
 
-**JUnit focus:**
+```
+Pipeline Stages:
+  ✅ 1. Checkout           – source code fetched from GitHub
+  ✅ 2. Compile            – mvn clean compile
+  ✅ 3. JUnit Tests        – mvn test  →  Test Results tab shows all 60+ tests
+  ✅ 4. Module Test Summary – 4 parallel stages, one per person
+  ✅ 5. Package            – ContentModerationEngine.jar archived
+  ✅ 6. Verify             – mvn verify passes
+```
 
-* Strike count increment
-* Correct action per strike level
-* Context allows / blocks content correctly
-
-**Suggested branch:**
-`feature-strikes-context`
-
----
-
-### 👤 **Person 4 – Audit Logs & Testing**
-
-**Features owned:**
-
-* **Audit / Moderation Logs**
-* Cross-module **JUnit tests**
-
-**Responsibilities:**
-
-* Create log entries:
-
-  * user
-  * word/rule triggered
-  * action
-  * timestamp
-* Maintain moderation history
-* Write integration-style unit tests
-
-**JUnit focus:**
-
-* Log created on moderation action
-* Correct log count
-* Log content accuracy
-
-**Suggested branch:**
-`feature-audit-logs`
+The **Test Results** tab inside Jenkins will show every individual JUnit test
+with its pass/fail status, execution time, and error messages if any failed.
 
 ---
 
-## 🔹 How Everything Connects (Simple Flow)
+## 📁 Project Structure
 
-1. **Text Matching** → finds offending word
-2. **Severity Engine** → decides action
-3. **Context + Strikes** → may override or escalate
-4. **Audit Logs** → record final decision
-
-Each part is **independent**, so:
-
-* minimal merge conflicts
-* clean commits
-* easy explanation in demo/viva
+```
+ContentModerationEngine/
+├── pom.xml                                   ← Maven build config + JUnit 5 deps
+├── Jenkinsfile                               ← Jenkins declarative pipeline
+├── README.md                                 ← This file
+├── .github/
+│   └── workflows/
+│       └── ci.yml                            ← GitHub Actions CI/CD
+└── src/
+    ├── main/java/com/moderation/
+    │   ├── Main.java                         ← Menu-driven interactive program
+    │   ├── model/
+    │   │   ├── Severity.java                 ← (P1) HIGH / MEDIUM / LOW
+    │   │   ├── ModerationAction.java         ← (P1) ALLOW / FLAG / BLOCK / ...
+    │   │   ├── Context.java                  ← (P3) GENERAL / EDU / MEDICAL / GAMING
+    │   │   ├── BannedWord.java               ← (P1) word + severity
+    │   │   ├── ModerationResult.java         ← (P1) result value object
+    │   │   └── AuditLog.java                 ← (P4) single log record
+    │   ├── engine/
+    │   │   ├── ModerationEngine.java         ← Orchestrator (all persons)
+    │   │   ├── SeverityEngine.java           ← (P1) severity → action mapping
+    │   │   ├── WordRepository.java           ← (P1) banned-word dictionary
+    │   │   ├── StrikeManager.java            ← (P3) strike tracking + escalation
+    │   │   └── ContextRuleManager.java       ← (P3) context whitelists/blocklists
+    │   ├── util/
+    │   │   ├── TextNormalizer.java           ← (P2) lowercase + leet-decode
+    │   │   └── TextMatcher.java              ← (P2) banned-word detection
+    │   └── log/
+    │       └── AuditLogger.java              ← (P4) in-memory audit log
+    └── test/java/com/moderation/
+        ├── SeverityEngineTest.java           ← (P1) 10 tests
+        ├── TextMatchingTest.java             ← (P2) 16 tests
+        ├── StrikeContextTest.java            ← (P3) 18 tests
+        ├── AuditLoggerTest.java              ← (P4) 14 tests
+        └── ModerationEngineIntegrationTest.java ← (P4) 16 integration tests
+```
 
 ---
 
-## ⭐ One-Line Team Summary (Very Useful)
+## 🔒 Severity & Context Quick Reference
 
-> *The system is modular: text normalization detects violations, severity rules decide actions, strike and context logic handle escalation, and audit logs track all moderation decisions.*
+### Severity → Default Action
 
-If you want, I can next:
+| Severity | Default Action |
+|----------|----------------|
+| HIGH | BLOCK |
+| MEDIUM | FLAG |
+| LOW | ALLOW_WITH_WARNING |
+| (none) | ALLOW |
 
-* give a **simple class diagram**
-* write **sample JUnit test cases per person**
-* or help you **simplify further** if time is short
+### Context Overrides
+
+| Context | Effect |
+|---------|--------|
+| EDUCATIONAL | kill, violence, drug, bomb, weapon → ALLOW_WITH_WARNING |
+| MEDICAL | drug, overdose, death, poison, suicide → ALLOW_WITH_WARNING |
+| GAMING | cheat, hack, exploit, glitch → always BLOCK |
+| GENERAL | No overrides; standard rules apply |
+
+### Strike Escalation
+
+| Strike | Action |
+|--------|--------|
+| 1st | ALLOW_WITH_WARNING |
+| 2nd | TEMPORARY_BLOCK |
+| 3rd+ | PERMANENT_BLOCK |
