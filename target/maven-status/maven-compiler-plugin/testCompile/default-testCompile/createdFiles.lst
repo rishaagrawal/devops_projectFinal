@@ -1,0 +1,6 @@
+com\moderation\SeverityEngineTest.class
+com\moderation\ModerationEngineIntegrationTest.class
+com\moderation\TextMatchingTest.class
+com\moderation\ManualTestRunner.class
+com\moderation\StrikeContextTest.class
+com\moderation\AuditLoggerTest.class
