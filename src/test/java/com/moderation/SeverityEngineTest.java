@@ -116,7 +116,3 @@ public class SeverityEngineTest {
         assertNotEquals(ModerationAction.FLAG, action);
     }
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/main
