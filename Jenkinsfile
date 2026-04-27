@@ -23,9 +23,9 @@ pipeline {
 
     // ── Tool configuration ────────────────────────────────────────────
     tools {
-        maven 'Maven-3.9'   // Must match the name in Jenkins → Global Tool Config
-        jdk   'JDK-11'      // Must match the name in Jenkins → Global Tool Config
-    }
+    maven 'Maven'
+    jdk   'JDK'
+}
 
     // ── Environment variables ─────────────────────────────────────────
     environment {
@@ -56,7 +56,7 @@ pipeline {
         stage('2. Compile') {
             steps {
                 echo '=== Compiling source code with Maven ==='
-                sh 'mvn clean compile -B'
+                bat 'mvn clean compile -B'
             }
         }
 
@@ -64,7 +64,7 @@ pipeline {
         stage('3. JUnit Tests') {
             steps {
                 echo '=== Running JUnit 5 tests via Maven Surefire ==='
-                sh 'mvn test -B'
+                bat 'mvn test -B'
             }
             post {
                 always {
@@ -87,25 +87,25 @@ pipeline {
 
                 stage('Person 1 – SeverityEngineTest') {
                     steps {
-                        sh 'mvn test -Dtest=SeverityEngineTest -B'
+                        bat 'mvn test -Dtest=SeverityEngineTest -B'
                     }
                 }
 
                 stage('Person 2 – TextMatchingTest') {
                     steps {
-                        sh 'mvn test -Dtest=TextMatchingTest -B'
+                        bat 'mvn test -Dtest=TextMatchingTest -B'
                     }
                 }
 
                 stage('Person 3 – StrikeContextTest') {
                     steps {
-                        sh 'mvn test -Dtest=StrikeContextTest -B'
+                        bat 'mvn test -Dtest=StrikeContextTest -B'
                     }
                 }
 
                 stage('Person 4 – AuditLoggerTest + Integration') {
                     steps {
-                        sh 'mvn test -Dtest=AuditLoggerTest,ModerationEngineIntegrationTest -B'
+                        bat 'mvn test -Dtest=AuditLoggerTest,ModerationEngineIntegrationTest -B'
                     }
                 }
             }
