@@ -1,80 +1,90 @@
+// Source code is decompiled from a .class file using FernFlower decompiler (from Intellij IDEA).
 package com.moderation.log;
 
 import com.moderation.model.AuditLog;
 import com.moderation.model.ModerationAction;
 import com.moderation.model.Severity;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Audit Logger
- * Maintains an in-memory list of AuditLog entries.
- */
 public class AuditLogger {
+   private final List<AuditLog> logs = new ArrayList();
 
-    private final List<AuditLog> logs = new ArrayList<>();
+   public AuditLogger() {
+   }
 
-    /**
-     * Records a new moderation event.
-     */
-    public void log(String userId, String triggeredWord,
-                    ModerationAction action, Severity severity, String reason) {
-        AuditLog entry = new AuditLog(userId, triggeredWord, action, severity, reason);
-        logs.add(entry);
-    }
+   public void log(String userId, String triggeredWord, ModerationAction action, Severity severity, String reason) {
+      AuditLog entry = new AuditLog(userId, triggeredWord, action, severity, reason);
+      this.logs.add(entry);
+   }
 
-    /** Returns all logs (unmodifiable). */
-    public List<AuditLog> getAllLogs() {
-        return Collections.unmodifiableList(logs);
-    }
+   public List<AuditLog> getAllLogs() {
+      return Collections.unmodifiableList(this.logs);
+   }
 
-    /** Returns logs for a specific user. */
-    public List<AuditLog> getLogsForUser(String userId) {
-        return logs.stream()
-                .filter(l -> l.getUserId().equals(userId))
-                .collect(Collectors.toList());
-    }
+   public List<AuditLog> getLogsForUser(String userId) {
+      return (List)this.logs.stream().filter((l) -> l.getUserId().equals(userId)).collect(Collectors.toList());
+   }
 
-    /** Returns logs filtered by action. */
-    public List<AuditLog> getLogsByAction(ModerationAction action) {
-        return logs.stream()
-                .filter(l -> l.getAction() == action)
-                .collect(Collectors.toList());
-    }
+   public List<AuditLog> getLogsByAction(ModerationAction action) {
+      return (List)this.logs.stream().filter((l) -> l.getAction() == action).collect(Collectors.toList());
+   }
 
-    /** Returns logs filtered by severity. */
-    public List<AuditLog> getLogsBySeverity(Severity severity) {
-        return logs.stream()
-                .filter(l -> l.getSeverity() == severity)
-                .collect(Collectors.toList());
-    }
+   public List<AuditLog> getLogsBySeverity(Severity severity) {
+      return (List)this.logs.stream().filter((l) -> l.getSeverity() == severity).collect(Collectors.toList());
+   }
 
-    /** Total number of logs. */
-    public int getTotalLogCount() {
-        return logs.size();
-    }
+   public int getTotalLogCount() {
+      return this.logs.size();
+   }
 
-    /** Check if empty. */
-    public boolean isEmpty() {
-        return logs.isEmpty();
-    }
+   public boolean isEmpty() {
+      return this.logs.isEmpty();
+   }
 
-    /** Print all logs. */
-    public void printAll() {
-        if (logs.isEmpty()) {
-            System.out.println("No logs recorded.");
-            return;
-        }
-        System.out.println("===== AUDIT LOG =====");
-        logs.forEach(System.out::println);
-        System.out.println("=====================");
-    }
+   public void printAll() {
+      if (this.logs.isEmpty()) {
+         System.out.println("  No events recorded yet.");
+      } else {
+         String sep = "=".repeat(55);
+         String line = "-".repeat(55);
+         System.out.println("  " + sep);
+         System.out.println("  AUDIT LOG  (" + this.logs.size() + " entries)");
+         System.out.println("  " + line);
 
-    /** Clear logs (for testing). */
-    public void clearLogs() {
-        logs.clear();
-    }
+         for(AuditLog log : this.logs) {
+            System.out.println("  " + log.toString());
+         }
+
+         System.out.println("  " + sep);
+         System.out.println();
+      }
+   }
+
+   public void printSummary() {
+      String sep = "=".repeat(55);
+      String line = "-".repeat(55);
+      System.out.println();
+      System.out.println("  " + sep);
+      System.out.println("  AUDIT SUMMARY");
+      System.out.println("  " + line);
+
+      for(ModerationAction action : ModerationAction.values()) {
+         long count = this.logs.stream().filter((l) -> l.getAction() == action).count();
+         if (count > 0L) {
+            System.out.printf("  %-24s : %d%n", action, count);
+         }
+      }
+
+      System.out.println("  " + line);
+      System.out.printf("  %-24s : %d%n", "TOTAL", this.logs.size());
+      System.out.println("  " + sep);
+      System.out.println();
+   }
+
+   public void clearLogs() {
+      this.logs.clear();
+   }
 }
