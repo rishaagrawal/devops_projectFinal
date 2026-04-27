@@ -1,109 +1,79 @@
-/*
- * ================================================================
- * Jenkinsfile – Content Moderation Engine
- * ================================================================
- * Exam Topics Demonstrated:
- *   ✅ Jenkins  – declarative pipeline with stages
- *   ✅ Maven    – compile / test / package / verify
- *   ✅ JUnit    – junit() result publisher built into Jenkins
- *   ✅ GitHub   – SCM polling + branch-based builds
- *
- * How to use:
- *   1. In Jenkins → New Item → Pipeline
- *   2. Pipeline Definition → "Pipeline script from SCM"
- *   3. SCM → Git → Repository URL (your GitHub repo)
- *   4. Script Path → Jenkinsfile
- *   5. Save → Build Now
- * ================================================================
- */
-
 pipeline {
 
-    agent any   // Run on any available Jenkins agent
+    agent any
 
-    // ── Tool configuration ────────────────────────────────────────────
     tools {
-    maven 'Maven'
-    jdk   'JDK'
-}
-
-    // ── Environment variables ─────────────────────────────────────────
-    environment {
-        APP_NAME    = 'ContentModerationEngine'
-        JAR_NAME    = 'ContentModerationEngine.jar'
-        MAVEN_OPTS  = '-Xmx512m'
+        maven 'Maven'
+        jdk   'JDK'
     }
 
-    // ── Trigger: poll GitHub every 5 minutes for new commits ──────────
+    environment {
+        APP_NAME   = 'ContentModerationEngine'
+        JAR_NAME   = 'ContentModerationEngine.jar'
+        MAVEN_OPTS = '-Xmx512m'
+    }
+
     triggers {
         pollSCM('H/5 * * * *')
     }
 
-    // ═════════════════════════════════════════════════════════════════
-    //  STAGES
-    // ═════════════════════════════════════════════════════════════════
     stages {
 
-        // ── Stage 1: Checkout ─────────────────────────────────────────
         stage('1. Checkout') {
             steps {
-                echo "=== Checking out branch: ${env.BRANCH_NAME} ==="
+                echo "=== Checking out code ==="
                 checkout scm
             }
         }
 
-        // ── Stage 2: Compile ──────────────────────────────────────────
         stage('2. Compile') {
             steps {
-                echo '=== Compiling source code with Maven ==='
+                echo '=== Compiling source code ==='
                 bat 'mvn clean compile -B'
             }
         }
 
-        // ── Stage 3: Run JUnit Tests ──────────────────────────────────
         stage('3. JUnit Tests') {
             steps {
-                echo '=== Running JUnit 5 tests via Maven Surefire ==='
+                echo '=== Running JUnit Tests ==='
                 bat 'mvn test -B'
             }
             post {
                 always {
-                    // Publish JUnit XML reports inside Jenkins UI
                     junit 'target/surefire-reports/TEST-*.xml'
-                    echo '=== JUnit test results published to Jenkins ==='
-                }
-                failure {
-                    echo '❌ One or more tests FAILED. Check the Test Results tab.'
+                    echo '=== Test results published ==='
                 }
                 success {
-                    echo '✅ All tests PASSED.'
+                    echo '✅ All tests PASSED'
+                }
+                failure {
+                    echo '❌ Tests FAILED'
                 }
             }
         }
 
-        // ── Stage 4: Person-by-person module test summary ─────────────
         stage('4. Module Test Summary') {
             parallel {
 
-                stage('Person 1 – SeverityEngineTest') {
+                stage('SeverityEngineTest') {
                     steps {
                         bat 'mvn test -Dtest=SeverityEngineTest -B'
                     }
                 }
 
-                stage('Person 2 – TextMatchingTest') {
+                stage('TextMatchingTest') {
                     steps {
                         bat 'mvn test -Dtest=TextMatchingTest -B'
                     }
                 }
 
-                stage('Person 3 – StrikeContextTest') {
+                stage('StrikeContextTest') {
                     steps {
                         bat 'mvn test -Dtest=StrikeContextTest -B'
                     }
                 }
 
-                stage('Person 4 – AuditLoggerTest + Integration') {
+                stage('Audit + Integration') {
                     steps {
                         bat 'mvn test -Dtest=AuditLoggerTest,ModerationEngineIntegrationTest -B'
                     }
@@ -111,61 +81,44 @@ pipeline {
             }
         }
 
-        // ── Stage 5: Package JAR ──────────────────────────────────────
         stage('5. Package') {
             steps {
-                echo '=== Packaging executable JAR ==='
-                sh 'mvn package -DskipTests -B'
-                echo "=== JAR created: target/${JAR_NAME} ==="
+                echo '=== Packaging JAR ==='
+                bat 'mvn package -DskipTests -B'   // ✅ FIXED
+                echo "JAR created at target/${JAR_NAME}"
             }
             post {
                 success {
-                    archiveArtifacts artifacts: "target/${JAR_NAME}",
-                                     fingerprint: true
-                    echo '📦 JAR archived as Jenkins build artifact.'
+                    archiveArtifacts artifacts: "target/${JAR_NAME}", fingerprint: true
+                    echo '📦 JAR archived'
                 }
             }
         }
 
-        // ── Stage 6: Verify (full lifecycle check) ────────────────────
         stage('6. Verify') {
             steps {
-                echo '=== Running mvn verify (compile + test + package) ==='
-                sh 'mvn verify -B'
+                echo '=== Running mvn verify ==='
+                bat 'mvn verify -B'   // ✅ FIXED
             }
         }
     }
 
-    // ═════════════════════════════════════════════════════════════════
-    //  POST-BUILD ACTIONS
-    // ═════════════════════════════════════════════════════════════════
     post {
 
         always {
-            echo "=== Build complete for branch: ${env.BRANCH_NAME} ==="
+            echo "=== Build Completed ==="
         }
 
         success {
-            echo """
-╔══════════════════════════════════════════════╗
-║  ✅  BUILD SUCCESSFUL                        ║
-║  All JUnit tests passed.                     ║
-║  JAR artifact ready for deployment.          ║
-╚══════════════════════════════════════════════╝
-"""
+            echo "✅ BUILD SUCCESSFUL"
         }
 
         failure {
-            echo """
-╔══════════════════════════════════════════════╗
-║  ❌  BUILD FAILED                            ║
-║  Check the JUnit Test Results tab above.     ║
-╚══════════════════════════════════════════════╝
-"""
+            echo "❌ BUILD FAILED"
         }
 
         unstable {
-            echo '⚠️  Build is UNSTABLE – some tests failed. Check the Test Results tab.'
+            echo "⚠️ BUILD UNSTABLE"
         }
     }
 }
