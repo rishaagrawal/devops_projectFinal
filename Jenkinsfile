@@ -2,19 +2,6 @@
  * ================================================================
  * Jenkinsfile – Content Moderation Engine
  * ================================================================
- * Exam Topics Demonstrated:
- *   ✅ Jenkins  – declarative pipeline with stages
- *   ✅ Maven    – compile / test / package / verify
- *   ✅ JUnit    – junit() result publisher built into Jenkins
- *   ✅ GitHub   – SCM polling + branch-based builds
- *
- * How to use:
- *   1. In Jenkins → New Item → Pipeline
- *   2. Pipeline Definition → "Pipeline script from SCM"
- *   3. SCM → Git → Repository URL (your GitHub repo)
- *   4. Script Path → Jenkinsfile
- *   5. Save → Build Now
- * ================================================================
  */
 
 pipeline {
@@ -85,25 +72,25 @@ pipeline {
         stage('4. Module Test Summary') {
             parallel {
 
-                stage('Person 1 – SeverityEngineTest') {
+                stage(' 1 – SeverityEngineTest') {
                     steps {
                         bat 'mvn test -Dtest=SeverityEngineTest -B'
                     }
                 }
 
-                stage('Person 2 – TextMatchingTest') {
+                stage(' 2 – TextMatchingTest') {
                     steps {
                         bat 'mvn test -Dtest=TextMatchingTest -B'
                     }
                 }
 
-                stage('Person 3 – StrikeContextTest') {
+                stage(' 3 – StrikeContextTest') {
                     steps {
                         bat 'mvn test -Dtest=StrikeContextTest -B'
                     }
                 }
 
-                stage('Person 4 – AuditLoggerTest + Integration') {
+                stage(' 4 – AuditLoggerTest + Integration') {
                     steps {
                         bat 'mvn test -Dtest=AuditLoggerTest,ModerationEngineIntegrationTest -B'
                     }

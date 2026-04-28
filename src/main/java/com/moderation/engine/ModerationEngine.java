@@ -8,17 +8,16 @@ import com.moderation.util.TextNormalizer;
 /**
  * ============================================================
  * MODULE : Moderation Engine (Central Orchestrator)
- * COMBINES contributions from all 4 persons.
  * ============================================================
  *
  * Pipeline executed for every call to {@link #moderate}:
  *
- *  Step 1 - Text Normalization  (Person 2 : TextNormalizer)
- *  Step 2 - Text Matching       (Person 2 : TextMatcher -> WordRepository)
- *  Step 3 - Severity Evaluation (Person 1 : SeverityEngine)
- *  Step 4 - Context Override    (Person 3 : ContextRuleManager)
- *  Step 5 - Strike Escalation   (Person 3 : StrikeManager)
- *  Step 6 - Audit Logging       (Person 4 : AuditLogger)
+ *  Step 1 - Text Normalization  
+ *  Step 2 - Text Matching       
+ *  Step 3 - Severity Evaluation 
+ *  Step 4 - Context Override    
+ *  Step 5 - Strike Escalation  
+ *  Step 6 - Audit Logging     
  *  Step 7 - Return ModerationResult
  */
 public class ModerationEngine {
