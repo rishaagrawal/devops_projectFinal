@@ -11,7 +11,7 @@
     <version>1.0.0</version>
     <packaging>jar</packaging>
     <name>Content Moderation Engine</name>
-    <description>A 4-person collaborative Content Moderation Engine with Severity, Text Matching, Strikes, Context Rules, and Audit Logging</description>
+    <description>A Content Moderation Engine with Severity, Text Matching, Strikes, Context Rules, and Audit Logging</description>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -40,8 +40,7 @@
     <build>
         <plugins>
             <!-- ======================================================== -->
-            <!-- Maven Compiler Plugin                                      -->
-            <!-- Person responsible: All team members                      -->
+            <!-- Maven Compiler Plugin                             -->
             <!-- ======================================================== -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -55,8 +54,7 @@
             </plugin>
 
             <!-- ======================================================== -->
-            <!-- Maven Surefire Plugin – runs JUnit 5 tests               -->
-            <!-- Person responsible: Person 4 (Audit & Tests)             -->
+            <!-- Maven Surefire Plugin – runs JUnit 5 tests             -->
             <!-- Run: mvn test                                              -->
             <!-- ======================================================== -->
             <plugin>
